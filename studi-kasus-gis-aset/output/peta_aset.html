@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8a372db7c19fd7c61191d0333005d862 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <style>
+      .dashboard-panel {
+        position:fixed; top:16px; left:62px; z-index:9999;
+        width:300px; max-height:calc(100vh - 32px);
+        overflow-y:auto; box-sizing:border-box;
+        padding:18px; background:#fff;
+        border:1px solid #e2e8f0; border-radius:14px;
+        box-shadow:0 6px 24px rgba(15,23,42,.16);
+        color:#1e293b; font-family:Arial,sans-serif;
+      }
+      .dashboard-panel * { box-sizing:border-box; }
+      .dashboard-title { font-size:20px; font-weight:700; }
+      .dashboard-subtitle {
+        margin-top:5px; font-size:12px; color:#64748b;
+        line-height:1.5;
+      }
+      .stat-grid {
+        display:grid; grid-template-columns:1fr 1fr;
+        gap:9px; margin-top:16px;
+      }
+      .stat-card {
+        border:1px solid #e2e8f0; border-radius:10px;
+        padding:11px; background:#f8fafc;
+      }
+      .stat-number { font-size:25px; font-weight:700; }
+      .stat-label { font-size:11px; color:#64748b; margin-top:4px; }
+      .section-title {
+        font-size:13px; font-weight:700; margin:20px 0 12px;
+      }
+      .condition-row {
+        display:flex; align-items:center; gap:8px;
+        margin:10px 0; font-size:12px;
+      }
+      .dot {
+        width:10px; height:10px; border-radius:50%;
+        display:inline-block; flex-shrink:0;
+      }
+      .category-row { margin:12px 0; font-size:12px; }
+      .category-label {
+        display:flex; justify-content:space-between; gap:8px;
+        margin-bottom:6px;
+      }
+      .bar-track {
+        height:7px; background:#e2e8f0;
+        border-radius:10px; overflow:hidden;
+      }
+      .bar-fill { height:100%; background:#2563eb; border-radius:10px; }
+      .dashboard-note {
+        border-top:1px solid #e2e8f0; margin-top:16px;
+        padding-top:12px; color:#64748b;
+        font-size:10px; line-height:1.5;
+      }
+      @media(max-width:600px) {
+        .dashboard-panel {
+          top:10px; left:54px; width:235px;
+          max-height:65vh; padding:12px;
+        }
+        .dashboard-title { font-size:17px; }
+        .stat-number { font-size:21px; }
+      }
+    </style>
+
+    <div class="dashboard-panel">
+      <div class="dashboard-title">Peta Fasilitas Publik</div>
+      <div class="dashboard-subtitle">
+        Dashboard inventaris dan kondisi aset
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-number">9</div>
+          <div class="stat-label">Total aset</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color:#16a34a">9</div>
+          <div class="stat-label">Kondisi baik</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color:#d97706">0</div>
+          <div class="stat-label">Perlu perawatan</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" style="color:#dc2626">0</div>
+          <div class="stat-label">Rusak</div>
+        </div>
+      </div>
+
+      <div class="section-title">Legenda kondisi aset</div>
+      <div class="condition-row">
+        <span class="dot" style="background:#16a34a"></span>Baik
+      </div>
+      <div class="condition-row">
+        <span class="dot" style="background:#f59e0b"></span>Perlu Perawatan
+      </div>
+      <div class="condition-row">
+        <span class="dot" style="background:#dc2626"></span>Rusak
+      </div>
+
+      <div class="section-title">Jumlah menurut kategori</div>
+      
+        <div class="category-row">
+          <div class="category-label">
+            <span>Kesehatan</span>
+            <b>8</b>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:100.0%"></div>
+          </div>
+        </div>
+        
+        <div class="category-row">
+          <div class="category-label">
+            <span>Olahraga</span>
+            <b>1</b>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:12.5%"></div>
+          </div>
+        </div>
+        
+
+      <div class="dashboard-note">
+        Gunakan kontrol layer di kanan atas peta untuk
+        memilih kelompok kategori dan kondisi.
+        Klik penanda untuk melihat detail aset.<br><br>
+        Data contoh bersifat dummy/ilustratif.
+      </div>
+    </div>
+    
+    
+            <div class="folium-map" id="map_8a372db7c19fd7c61191d0333005d862" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8a372db7c19fd7c61191d0333005d862 = L.map(
+                "map_8a372db7c19fd7c61191d0333005d862",
+                {
+                    center: [-3.8156072333333335, 102.28877237777778],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": true,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_8a372db7c19fd7c61191d0333005d862);
+
+            
+
+        
+    
+            var tile_layer_3ea60b38de738ad1101594319ad74f67 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "\u00a9 \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap contributors\u003c/a\u003e",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_3ea60b38de738ad1101594319ad74f67.addTo(map_8a372db7c19fd7c61191d0333005d862);
+        
+    
+            var feature_group_b22a288e67297dbbf69dfa5c33d163f2 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_8aebc010a7c5a59db140c4f39fe626a7 = L.circleMarker(
+                [-3.7968405, 102.2703876],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_194335d4163e4207c2c3c0a3888da5a5 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_b4b16a16c2a207fd4397776b235e3350 = $(`<div id="html_b4b16a16c2a207fd4397776b235e3350" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     RS Rafflesia                   </h4>                   <b>ID aset:</b> AST001<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.7968405<br>                   <b>Longitude:</b> 102.2703876                 </div>                 </div>`)[0];
+                popup_194335d4163e4207c2c3c0a3888da5a5.setContent(html_b4b16a16c2a207fd4397776b235e3350);
+            
+        
+
+        circle_marker_8aebc010a7c5a59db140c4f39fe626a7.bindPopup(popup_194335d4163e4207c2c3c0a3888da5a5)
+        ;
+
+        
+    
+    
+            circle_marker_8aebc010a7c5a59db140c4f39fe626a7.bindTooltip(
+                `<div>
+                     RS Rafflesia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4d372ef88e4cf9fbfc968b457daff986 = L.circleMarker(
+                [-3.833955, 102.31356],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_0df718d2ce2ddb565f2abda5c1f2aa29 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_f8647ea37782fc2353dc27c412bf6680 = $(`<div id="html_f8647ea37782fc2353dc27c412bf6680" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     RSUD dr. M. Yunus                   </h4>                   <b>ID aset:</b> AST002<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.833955<br>                   <b>Longitude:</b> 102.31356                 </div>                 </div>`)[0];
+                popup_0df718d2ce2ddb565f2abda5c1f2aa29.setContent(html_f8647ea37782fc2353dc27c412bf6680);
+            
+        
+
+        circle_marker_4d372ef88e4cf9fbfc968b457daff986.bindPopup(popup_0df718d2ce2ddb565f2abda5c1f2aa29)
+        ;
+
+        
+    
+    
+            circle_marker_4d372ef88e4cf9fbfc968b457daff986.bindTooltip(
+                `<div>
+                     RSUD dr. M. Yunus
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_60bb13a7bce7752026bd80a3758c727c = L.circleMarker(
+                [-3.7930164, 102.255239],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_b9eb16d7bd51e8bc6aa6b43e039af474 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_4aff8d8df438ea896692a384a098b2a1 = $(`<div id="html_4aff8d8df438ea896692a384a098b2a1" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     RS Bhayangkara Jitra                   </h4>                   <b>ID aset:</b> AST003<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.7930164<br>                   <b>Longitude:</b> 102.255239                 </div>                 </div>`)[0];
+                popup_b9eb16d7bd51e8bc6aa6b43e039af474.setContent(html_4aff8d8df438ea896692a384a098b2a1);
+            
+        
+
+        circle_marker_60bb13a7bce7752026bd80a3758c727c.bindPopup(popup_b9eb16d7bd51e8bc6aa6b43e039af474)
+        ;
+
+        
+    
+    
+            circle_marker_60bb13a7bce7752026bd80a3758c727c.bindTooltip(
+                `<div>
+                     RS Bhayangkara Jitra
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0eaac3b895641968279010044c61ac49 = L.circleMarker(
+                [-3.80027, 102.27141],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_e8eff200f77141ebf3dc7cd96502f681 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_c90093a1953594db044d004bf9100afe = $(`<div id="html_c90093a1953594db044d004bf9100afe" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     RS Tiara Sella                   </h4>                   <b>ID aset:</b> AST004<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.80027<br>                   <b>Longitude:</b> 102.27141                 </div>                 </div>`)[0];
+                popup_e8eff200f77141ebf3dc7cd96502f681.setContent(html_c90093a1953594db044d004bf9100afe);
+            
+        
+
+        circle_marker_0eaac3b895641968279010044c61ac49.bindPopup(popup_e8eff200f77141ebf3dc7cd96502f681)
+        ;
+
+        
+    
+    
+            circle_marker_0eaac3b895641968279010044c61ac49.bindTooltip(
+                `<div>
+                     RS Tiara Sella
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_7935ce9db687db0a72e9fee68ae92018 = L.circleMarker(
+                [-3.8387044, 102.2998358],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_9da88c61ba073f94aeffcf24b615036b = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_386d04095a80b653a1fd5843f2bbc369 = $(`<div id="html_386d04095a80b653a1fd5843f2bbc369" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     RS Gading Medika                   </h4>                   <b>ID aset:</b> AST005<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.8387044<br>                   <b>Longitude:</b> 102.2998358                 </div>                 </div>`)[0];
+                popup_9da88c61ba073f94aeffcf24b615036b.setContent(html_386d04095a80b653a1fd5843f2bbc369);
+            
+        
+
+        circle_marker_7935ce9db687db0a72e9fee68ae92018.bindPopup(popup_9da88c61ba073f94aeffcf24b615036b)
+        ;
+
+        
+    
+    
+            circle_marker_7935ce9db687db0a72e9fee68ae92018.bindTooltip(
+                `<div>
+                     RS Gading Medika
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_39de67f6c2597aeca629c0c6978bdc54 = L.circleMarker(
+                [-3.8281028, 102.312441],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_ffde10efa201bb261d850235c2f6a58a = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_5c05a5cb493673f60e8e6367e721fb41 = $(`<div id="html_5c05a5cb493673f60e8e6367e721fb41" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     RSU Ummi                   </h4>                   <b>ID aset:</b> AST006<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.8281028<br>                   <b>Longitude:</b> 102.312441                 </div>                 </div>`)[0];
+                popup_ffde10efa201bb261d850235c2f6a58a.setContent(html_5c05a5cb493673f60e8e6367e721fb41);
+            
+        
+
+        circle_marker_39de67f6c2597aeca629c0c6978bdc54.bindPopup(popup_ffde10efa201bb261d850235c2f6a58a)
+        ;
+
+        
+    
+    
+            circle_marker_39de67f6c2597aeca629c0c6978bdc54.bindTooltip(
+                `<div>
+                     RSU Ummi
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_faf72cc4803865fa1e17c9a35a1335d5 = L.circleMarker(
+                [-3.82158, 102.29808],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_aedceac5d4676b9fbbf68edfaa2fa798 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_62dac71f9f2ea209a48ac8b6eab21346 = $(`<div id="html_62dac71f9f2ea209a48ac8b6eab21346" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     Puskesmas Jalan Gedang                   </h4>                   <b>ID aset:</b> AST008<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.82158<br>                   <b>Longitude:</b> 102.29808                 </div>                 </div>`)[0];
+                popup_aedceac5d4676b9fbbf68edfaa2fa798.setContent(html_62dac71f9f2ea209a48ac8b6eab21346);
+            
+        
+
+        circle_marker_faf72cc4803865fa1e17c9a35a1335d5.bindPopup(popup_aedceac5d4676b9fbbf68edfaa2fa798)
+        ;
+
+        
+    
+    
+            circle_marker_faf72cc4803865fa1e17c9a35a1335d5.bindTooltip(
+                `<div>
+                     Puskesmas Jalan Gedang
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ab62fe7b1228e5db34911f13ae28a000 = L.circleMarker(
+                [-3.83494, 102.30522],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b22a288e67297dbbf69dfa5c33d163f2);
+        
+    
+        var popup_843559edb49ce72bb82bff5d90290297 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_ec372c79b2480a1446b6ad5e682f1def = $(`<div id="html_ec372c79b2480a1446b6ad5e682f1def" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     Puskesmas Lingkar Barat                   </h4>                   <b>ID aset:</b> AST009<br>                   <b>Kategori:</b> Kesehatan<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.83494<br>                   <b>Longitude:</b> 102.30522                 </div>                 </div>`)[0];
+                popup_843559edb49ce72bb82bff5d90290297.setContent(html_ec372c79b2480a1446b6ad5e682f1def);
+            
+        
+
+        circle_marker_ab62fe7b1228e5db34911f13ae28a000.bindPopup(popup_843559edb49ce72bb82bff5d90290297)
+        ;
+
+        
+    
+    
+            circle_marker_ab62fe7b1228e5db34911f13ae28a000.bindTooltip(
+                `<div>
+                     Puskesmas Lingkar Barat
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_b22a288e67297dbbf69dfa5c33d163f2.addTo(map_8a372db7c19fd7c61191d0333005d862);
+        
+    
+            var feature_group_83b72fba7774eb5354fe7f916ffd3f2a = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_a55cf060c600bdb948fa349e372cca3c = L.circleMarker(
+                [-3.793056, 102.272778],
+                {"bubblingMouseEvents": true, "color": "#ffffff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#16a34a", "fillOpacity": 0.95, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_83b72fba7774eb5354fe7f916ffd3f2a);
+        
+    
+        var popup_b77b7f3b8c86346266f62eb8487b1bd9 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_69099da4b91d3ca4160dd9264982520a = $(`<div id="html_69099da4b91d3ca4160dd9264982520a" style="width: 100.0%; height: 100.0%;">                 <div style="font-family:Arial,sans-serif;min-width:190px">                   <h4 style="margin:0 0 10px">                     Stadion Semarak Sawah Lebar                   </h4>                   <b>ID aset:</b> AST007<br>                   <b>Kategori:</b> Olahraga<br>                   <b>Kondisi:</b>                   <span style="color:#16a34a;font-weight:bold">                     Baik                   </span><br>                   <b>Latitude:</b> -3.793056<br>                   <b>Longitude:</b> 102.272778                 </div>                 </div>`)[0];
+                popup_b77b7f3b8c86346266f62eb8487b1bd9.setContent(html_69099da4b91d3ca4160dd9264982520a);
+            
+        
+
+        circle_marker_a55cf060c600bdb948fa349e372cca3c.bindPopup(popup_b77b7f3b8c86346266f62eb8487b1bd9)
+        ;
+
+        
+    
+    
+            circle_marker_a55cf060c600bdb948fa349e372cca3c.bindTooltip(
+                `<div>
+                     Stadion Semarak Sawah Lebar
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_83b72fba7774eb5354fe7f916ffd3f2a.addTo(map_8a372db7c19fd7c61191d0333005d862);
+        
+    
+            map_8a372db7c19fd7c61191d0333005d862.fitBounds(
+                [[-3.8387044, 102.255239], [-3.7930164, 102.31356]],
+                {"padding": [35, 35]}
+            );
+        
+    
+            var layer_control_efa15d18dd3914fc2cc75970ad03ce42_layers = {
+                base_layers : {
+                    "OpenStreetMap" : tile_layer_3ea60b38de738ad1101594319ad74f67,
+                },
+                overlays :  {
+                    "Kesehatan \u2014 Baik" : feature_group_b22a288e67297dbbf69dfa5c33d163f2,
+                    "Olahraga \u2014 Baik" : feature_group_83b72fba7774eb5354fe7f916ffd3f2a,
+                },
+            };
+            let layer_control_efa15d18dd3914fc2cc75970ad03ce42 = L.control.layers(
+                layer_control_efa15d18dd3914fc2cc75970ad03ce42_layers.base_layers,
+                layer_control_efa15d18dd3914fc2cc75970ad03ce42_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_8a372db7c19fd7c61191d0333005d862);
+
+        
+</script>
+</html>
