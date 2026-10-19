@@ -1,6 +1,6 @@
 # Pemetaan dan Visualisasi Aset Fasilitas Umum Berbasis GIS
 
-Proyek sederhana Geographic Information System (GIS) menggunakan Python untuk mengelola data aset fasilitas umum dan menampilkan lokasinya pada peta interaktif.
+Proyek ini merupakan implementasi studi kasus pembelajaran berdasarkan materi “Career and Competition in Industrial Era” oleh Widi Primadepa dari City Care Property, Christchurch, Selandia Baru. Proyek sederhana Geographic Information System (GIS) menggunakan Python untuk mengelola data aset fasilitas umum dan menampilkan lokasinya pada peta interaktif.
 
 ## Latar Belakang
 
